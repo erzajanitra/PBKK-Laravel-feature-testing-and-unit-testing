@@ -19,22 +19,21 @@ class PostTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/post')
-                ->screenshot('post-home')
                 ->assertSee('Post');
         });
     }
 
-    public function testCreateReturnPath()
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/post')
-                ->clickLink('Create post')
-                ->type('title', "TestCreatePost")
-                ->type('description', "TestCreatePostDescription")
-                ->press('submit-post')
-                ->assertPathIs('/post');
-        });
-    }
+    // public function testCreateReturnPath()
+    // {
+    //     $this->browse(function (Browser $browser) {
+    //         $browser->visit('/post')
+    //             ->clickLink('Create post')
+    //             ->type('title', "TestCreatePost")
+    //             ->type('description', "TestCreatePostDescription")
+    //             ->press('submit-post')
+    //             ->assertPathIs('/post');
+    //     });
+    // }
     // menguji halaman membuat post
     public function testCreateVisible()
     {
@@ -58,7 +57,7 @@ class PostTest extends DuskTestCase
                     ->assertSee('January');
         });
     }
-    // untuk buka page tertentu
+    // untuk buka page tertentu menggunakan login
     public function testLogin(){
         $this->browse(function (Browser $browser) {
             $browser->visit(new Login)

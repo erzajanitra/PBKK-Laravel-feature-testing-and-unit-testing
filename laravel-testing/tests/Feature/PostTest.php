@@ -41,14 +41,14 @@ class PostTest extends TestCase
 
         $response->assertStatus(200);
     }
-
+    // request menggunakan header
     public function test_post_with_headers()
     {
-        // $response = $this->withHeaders([
-        //     'X-Header' => 'Value',
-        // ])->post('/post', ['name' => 'Sally']);
+        $response = $this->withHeaders([
+            'X-Header' => 'Value',
+        ])->post('/post', ['name' => 'Sally']);
 
-        // $response->assertStatus(201);
+        $response->assertStatus(302);
     }
 
     public function test_interacting_with_cookies()
@@ -60,19 +60,19 @@ class PostTest extends TestCase
             'name' => 'Taylor',
         ])->get('/');
     }
-
+    // maintain state untuk current authenticated user
     public function test_interacting_with_the_session()
     {
         $response = $this->withSession(['banned' => false])->get('/');
     }
-    // HTTP Auth
+    // HTTP Auth : gives user as current user
     public function test_post_requires_authentication()
     {
-        // $user = User::factory()->create();
+        $user = \App\Models\User::factory()->create();
 
-        // $response = $this->actingAs($user)
-        //     ->withSession(['banned' => false])
-        //     ->get('/post');
+        $response = $this->actingAs($user)
+            ->withSession(['banned' => false])
+            ->get('/post');
     }
     // debug result dan response dari HTTP test
     public function test_basic_test()
