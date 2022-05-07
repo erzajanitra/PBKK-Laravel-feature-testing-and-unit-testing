@@ -5,6 +5,8 @@ namespace Tests\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Tests\Browser\Pages\Login;
+use Tests\Browser\Components\DatePicker;
 
 class PostTest extends DuskTestCase
 {
@@ -33,7 +35,7 @@ class PostTest extends DuskTestCase
                 ->assertPathIs('/post');
         });
     }
-    // menguji halaman 
+    // menguji halaman membuat post
     public function testCreateVisible()
     {
         $this->browse(function (Browser $browser) {
@@ -45,4 +47,25 @@ class PostTest extends DuskTestCase
                 ->assertSee('TestCreatePost2');
         });
     }
+    // menggunakan dust component untuk datePicker
+    public function testBasicExample()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                    ->within(new DatePicker, function ($browser) {
+                        $browser->selectDate(2019, 1, 30);
+                    })
+                    ->assertSee('January');
+        });
+    }
+    // untuk buka page tertentu
+    public function testLogin(){
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new Login)
+            ->login('user','password')
+            ->assertSee('Successfully Login');
+        });
+    }
+    
+    
 }

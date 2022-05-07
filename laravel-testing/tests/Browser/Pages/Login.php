@@ -39,4 +39,10 @@ class Login extends Page
             '@element' => '#selector',
         ];
     }
+    public function login(Browser $browser, $username, $password)
+    {
+        $browser->type('username', $username)
+                ->type('password', $password)
+                ->press('Create Playlist');
+    }
 }

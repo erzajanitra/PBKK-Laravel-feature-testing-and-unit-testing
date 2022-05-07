@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\laravel-testing",
+    "\\laravel-testing\\app",
+    "\\laravel-testing\\app\\Models",
+    "\\laravel-testing\\app\\Modules",
+    "\\laravel-testing\\app\\Modules\\Post",
+    "\\laravel-testing\\app\\Modules\\Post\\Infrastructure",
+    "\\laravel-testing\\app\\Modules\\Post\\Presentation\\Components",
+    "\\laravel-testing\\app\\Modules\\Post\\Presentation\\Controllers",
+    "\\laravel-testing\\bootstrap"
+  ],
+  "SelectedNode": "\\laravel-testing\\app",
+  "PreviewInSolutionExplorer": false
+}

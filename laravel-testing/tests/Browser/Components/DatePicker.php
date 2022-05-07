@@ -14,7 +14,7 @@ class DatePicker extends BaseComponent
      */
     public function selector()
     {
-        return '#selector';
+        return '.date-picker';
     }
 
     /**
@@ -38,5 +38,18 @@ class DatePicker extends BaseComponent
         return [
             '@element' => '#selector',
         ];
+    }
+    public function selectDate(Browser $browser, $year, $month, $day)
+    {
+        $browser->click('@date-field')
+                ->within('@year-list', function ($browser) use ($year) {
+                    $browser->click($year);
+                })
+                ->within('@month-list', function ($browser) use ($month) {
+                    $browser->click($month);
+                })
+                ->within('@day-list', function ($browser) use ($day) {
+                    $browser->click($day);
+                });
     }
 }

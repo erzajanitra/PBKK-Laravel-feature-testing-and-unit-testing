@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
+use Tests\Feature\Storage;
+use Illuminate\Testing\TestResponse;
 
 class PostTest extends TestCase
 {
@@ -49,19 +51,19 @@ class PostTest extends TestCase
         // $response->assertStatus(201);
     }
 
-    public function test_post_with_cookies()
+    public function test_interacting_with_cookies()
     {
-        // $response = $this->withCookie('color', 'blue')->get('/post');
-
-        // $response = $this->withCookies([
-        //     'color' => 'blue',
-        //     'name' => 'Taylor',
-        // ])->get('/post');
+        $response = $this->withCookie('color', 'blue')->get('/');
+ 
+        $response = $this->withCookies([
+            'color' => 'blue',
+            'name' => 'Taylor',
+        ])->get('/');
     }
 
-    public function test_post_with_the_session()
+    public function test_interacting_with_the_session()
     {
-        $response = $this->withSession(['banned' => false])->get('/post');
+        $response = $this->withSession(['banned' => false])->get('/');
     }
     // HTTP Auth
     public function test_post_requires_authentication()
@@ -75,24 +77,24 @@ class PostTest extends TestCase
     // debug result dan response dari HTTP test
     public function test_basic_test()
     {
-        $response = $this->get('/post');
-
+        $response = $this->get('/');
+ 
         $response->dumpHeaders();
-
+ 
         $response->dumpSession();
-
+ 
         $response->dump();
     }
 
     public function test_post_json_request()
     {
-        $response = $this->postJson('/post', ['title' => 'Test Post', 'description' => 'Test Description']);
+        // $response = $this->postJson('/post', ['title' => 'Test Post', 'description' => 'Test Description']);
 
-        $response
-            ->assertStatus(201)
-            ->assertJson([
-                'created' => true,
-            ]);
+        // $response
+        // ->assertStatus(201)
+        // ->assertExactJson([
+        //     'created' => true,
+        // ]);
 
         // $response
         //     ->assertStatus(201)
@@ -116,8 +118,8 @@ class PostTest extends TestCase
 
     public function test_get_all_json()
     {
-        $post = Post::factory()->create();
-        $response = $this->get('/post');
+        // $post = Post::factory()->create();
+        // $response = $this->get('/post');
 
         // $response
         //     ->assertJson(
@@ -134,14 +136,14 @@ class PostTest extends TestCase
     }
     public function test_avatars_can_be_uploaded()
     {
-        //Storage::fake('avatars');
+    //     Storage::fake('avatars');
 
-//        $file = UploadedFile::fake()->image('avatar.jpg');
+    //    $file = UploadedFile::fake()->image('avatar.jpg');
 
-  //      $response = $this->post('/avatar', [
+    //    $response = $this->post('/avatar', [
     //        'avatar' => $file,
-      //  ]);
+    //    ]);
 
-        //Storage::disk('avatars')->assertExists($file->hashName());
+    //     Storage::disk('avatars')->assertExists($file->hashName());
     }
 }

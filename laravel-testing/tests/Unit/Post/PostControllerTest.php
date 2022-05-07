@@ -17,18 +17,23 @@ class PostControllerTest extends TestCase
      * @return void
      */
 
-    public function testStoreDataSuccessfullyPost()
-    {
+    public function testStoreDataSuccessfullyPost(){
+        // membuat objek mocking untuk mengendalikan value dari object tersebut saat testing
         $repo = Mockery::mock(MySQLPostRepository::class);
 
+        // control fungsi store dari mysqlpostrepository
         $repo->shouldReceive('store')->once();
         app()->instance(PostRepository::class, $repo);
+
+        // untuk mengirim request yang akan dicek
         $response = $this->post('/post', [
             '_token' => csrf_token(),
             'title' => 'test',
             'description' => 'description'
         ]);
+        // cek apakah post sudah bertambah
         $response->assertStatus(302);
+        // cek apakah route redirect benar
         $response->assertRedirect('/post');
     }
 
@@ -44,9 +49,9 @@ class PostControllerTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/');
     }
-
     public function testRenderAllPostsPage()
     {
+        // control fungsi getAll dari MySQLPostRepository
         $repo = Mockery::mock(MySQLPostRepository::class);
         $posts = [];
         for ($i = 0; $i < 4; $i++) {
@@ -72,6 +77,8 @@ class PostControllerTest extends TestCase
         $post->slug = 'dasar';
         $post->createdAt = now();
         $post->updatedAt = now();
+        
+        // findbySlug
         $repo->shouldReceive('findBySlug')->andReturn($post);
         app()->instance(PostRepository::class, $repo);
         $response = $this->get('/post/' . $post->slug);
@@ -98,6 +105,7 @@ class PostControllerTest extends TestCase
     {
         $repo = Mockery::mock(MySQLPostRepository::class);
 
+        // supaya fungsi update dipanggil sekali
         $repo->shouldReceive('update')->once();
         app()->instance(PostRepository::class, $repo);
         $response = $this->put('/post/dasar', [
@@ -124,6 +132,7 @@ class PostControllerTest extends TestCase
     public function testDeleteDataSuccessfullyPost()
     {
         $repo = Mockery::mock(MySQLPostRepository::class);
+        // deleteBySlug
         $repo->shouldReceive('deleteBySlug')->once();
         app()->instance(PostRepository::class, $repo);
         $response = $this->delete('/post/dasar');
