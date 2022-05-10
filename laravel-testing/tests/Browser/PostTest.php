@@ -16,24 +16,13 @@ class PostTest extends DuskTestCase
      * @return void
      */
     public function testExample()
-    {
+    {   
         $this->browse(function (Browser $browser) {
             $browser->visit('/post')
                 ->assertSee('Post');
         });
     }
 
-    // public function testCreateReturnPath()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->visit('/post')
-    //             ->clickLink('Create post')
-    //             ->type('title', "TestCreatePost")
-    //             ->type('description', "TestCreatePostDescription")
-    //             ->press('submit-post')
-    //             ->assertPathIs('/post');
-    //     });
-    // }
     // menguji halaman membuat post
     public function testCreateVisible()
     {
@@ -52,9 +41,9 @@ class PostTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->within(new DatePicker, function ($browser) {
-                        $browser->selectDate(2019, 1, 30);
+                        $browser->selectDate(2022, 5, 07);
                     })
-                    ->assertSee('January');
+                    ->assertSee('May');
         });
     }
     // untuk buka page tertentu menggunakan login

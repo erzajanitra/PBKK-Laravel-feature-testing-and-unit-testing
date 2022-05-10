@@ -7,7 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
-use Tests\Feature\Storage;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Testing\TestResponse;
 
 class PostTest extends TestCase
@@ -86,64 +87,17 @@ class PostTest extends TestCase
         $response->dump();
     }
 
-    public function test_post_json_request()
-    {
-        // $response = $this->postJson('/post', ['title' => 'Test Post', 'description' => 'Test Description']);
-
-        // $response
-        // ->assertStatus(201)
-        // ->assertExactJson([
-        //     'created' => true,
-        // ]);
-
-        // $response
-        //     ->assertStatus(201)
-        //     ->assertExactJson([
-        //         'created' => true,
-        //     ]);
-
-        // $response
-        // ->assertStatus(201)
-        // ->assertJsonPath('team.owner.name', 'Darian');
-
-        // $response
-        //     ->assertJson(
-        //         fn (AssertableJson $json) =>
-        //         $json->where('id', 1)
-        //             ->where('name', 'Victoria Faith')
-        //             ->missing('password')
-        //             ->etc()
-        //     );
-    }
-
-    public function test_get_all_json()
-    {
-        // $post = Post::factory()->create();
-        // $response = $this->get('/post');
-
-        // $response
-        //     ->assertJson(
-        //         fn (AssertableJson $json) =>
-        //         $json->has(3)
-        //             ->first(
-        //                 fn ($json) =>
-        //                 $json->where('id', 1)
-        //                     ->where('name', 'Victoria Faith')
-        //                     ->missing('password')
-        //                     ->etc()
-        //             )
-        //     );
-    }
+    
     public function test_avatars_can_be_uploaded()
     {
-    //     Storage::fake('avatars');
+        Storage::fake('avatars');
 
-    //    $file = UploadedFile::fake()->image('avatar.jpg');
+        $file = UploadedFile::fake()->image('avatar.jpg');
 
-    //    $response = $this->post('/avatar', [
-    //        'avatar' => $file,
-    //    ]);
+        $response = $this->post('/avatar', [
+            'avatar' => $file,
+        ]);
 
-    //     Storage::disk('avatars')->assertExists($file->hashName());
+        Storage::disk('avatars')->assertExists($file->hashName());
     }
 }
