@@ -1,5 +1,5 @@
 # PBKK-Laravel-feature-testing-and-unit-testing
 
-[Testing and Unit Testing](another-page.md)
+[Testing and Unit Testing](unit-testing.md)
 
-[Feature Testing](another-page.md)
+[Feature Testing](feature-testing.md)
