@@ -9,18 +9,19 @@ Feature test dapat digunakan untuk menguji gabungan komponen pada aplikasi yang 
 
 ## Tutorial
 ### HTTP Test
-Untuk melakukan HTTP Test dapat menjalankan command berikut
+#### Membuat Script PostTest
+Untuk melakukan HTTP Test dapat menjalankan command berikut 
 ```
    php artisan make:test PostTest
 ```
 
 Maka pada project laravel akan terdapat folder `tests` dan sub folder `Feature` dengan beberapa script di dalamnya
 
-<img width="164" alt="image" src="https://user-images.githubusercontent.com/75319371/168455939-ce12cd21-657b-473c-9511-665af528faf7.png">
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/75319371/168455939-ce12cd21-657b-473c-9511-665af528faf7.png">
 
 Berikut adalah script PostTest.php : [PostTest.php](https://github.com/erzajanitra/PBKK-Laravel-feature-testing-and-unit-testing/blob/824e7f4bc903182f3a8872f2a797c7c16712d9e8/laravel-testing/tests/Feature/PostTest.php)
 
-Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test case yang dapat digunakan untuk menguji aplikasi kita.
+Kemudian, tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test case yang dapat digunakan untuk menguji aplikasi kita.
 
 #### Basic Request
 - Fungsi `test_welcome_status` digunakan untuk menguji ketika membuka page dengan route `/post` menggunakan method `get`. Jika berhasil membuka page tersebut maka akan mendapatkan response berupa status code 200. 
@@ -133,11 +134,63 @@ Setelah berhasil menambahkan `laravel/dusk`, install Laravel Dusk dengan command
 ```
    php artisan dusk:install
 ```
+#### Membuat Script PostTest
+Untuk melakukan Browser Test dapat menjalankan command berikut 
+```
+   php artisan dusk:test PostTest
+```
+
+Maka pada project laravel akan terdapat folder `tests` dan sub folder `Browser` dengan beberapa sub folder dan script di dalamnya
+
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/75319371/168589042-d2e5a742-b4e0-4ba0-b3fd-77ab68d14134.png">
 
 Berikut adalah script PostTest.php : [PostTest.php](https://github.com/erzajanitra/PBKK-Laravel-feature-testing-and-unit-testing/blob/824e7f4bc903182f3a8872f2a797c7c16712d9e8/laravel-testing/tests/Browser/PostTest.php)
 
-Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test case yang dapat digunakan untuk menguji aplikasi kita.
+Kemudian, tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test case yang dapat digunakan untuk menguji aplikasi kita.
 #### Basic Test
+Fungsi ` testExample` digunakan untuk menguji ketika membuka page dengan route `/post` menggunakan method `visit`. Kemudian, menggunakan method `assertSee` untuk memastikan bahwa halaman yang diinginkan telah berhasil dibuka oleh user
+```
+   public function testExample()
+    {   
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/post')
+                ->assertSee('Post');
+        });
+    }
+```
 #### Laravel Dusk Component
-#### Laravel Dusk Feature
+Laravel Dusk memiliki fitur Component yang dapat digunakan untuk menampilkan UI dan memiliki fungsionalitas dapat di re-used selama menggunakan aplikasi tersebut, seperti navigation bar atau notification window. Untuk menggunakan Dusk Component dapat menggunakan command
+```
+   php artisan dusk:component DatePicker
+   
+```
+Setelah menjalankan command tersebut, maka script DatePicker.php akan tertambahkan pada sub folder Component
+
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/75319371/168599199-3bb4df47-8d03-40f3-bc62-2fa5918dbaa6.png">
+
+Berikut adalah script DatePicker.php : [DatePicker.php](https://github.com/erzajanitra/PBKK-Laravel-feature-testing-and-unit-testing/blob/7695a7ad01fb7fe084252ddb14e5dfb46cad65bb/laravel-testing/tests/Browser/Components/DatePicker.php)
+
+Component DatePicker adalah component yang selalu dapat ditampilkan pada setiap halaman di aplikasi yang kita buat secara otomatis. Pada script DatePicker terdapat beberapa method yang akan tergenerate secara otomatis, yaitu method `selector`, `assert`, `elements`, dan `selectDate`. Kemudian, untuk menjalankan test terhadap DatePicker, kita bisa menambahkan fungsi `testBasicExample` di bawah ini. Method `selectDate` digunakan untuk memilih tanggal yang diinginkan dengan format (tahun, bulan, tanggal). Lalu, method `assertSee` digunakan untuk memastikan bahwa bulan yang dipilih telah sesuai.
+```
+   public function testBasicExample()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                    ->within(new DatePicker, function ($browser) {
+                        $browser->selectDate(2022, 5, 07);
+                    })
+                    ->assertSee('May');
+        });
+    }
+```
+#### Laravel Dusk Page
+```
+   public function testLogin(){
+        $this->browse(function (Browser $browser) {
+            $browser->visit(new Login)
+            ->login('user','password')
+            ->assertSee('Successfully Login');
+        });
+    }
+```
 
