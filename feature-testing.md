@@ -122,6 +122,11 @@ Fungsi ` test_avatars_can_be_uploaded` digunakan untuk mengujikan penguploadan f
         Storage::disk('avatars')->assertExists($file->hashName());
     }
 ```
+#### Command untuk Testing
+Untuk menjalankan HTTP Test dapat menggunakan command berikut 
+```
+   php artisan test
+```
 
 ### Browser Test
 Untuk Browser Test dapat menggunakan salah satu fitur testing dari laravel untuk pengujian aplikasi laravel secara otomatis, yaitu Laravel Dusk. Laravel Dusk adalah browser automation and testing API yang disediakan oleh Laravel dan tidak mengharuskan kita untuk menginstall JDK atau Selenium ke browser kita, melainkan menggunakan ChromeDriver. Namun, kita juga bebas menggunakan driver yang compatible dengan Selenium yang lain.
@@ -162,7 +167,6 @@ Fungsi ` testExample` digunakan untuk menguji ketika membuka page dengan route `
 Laravel Dusk memiliki fitur Component yang dapat digunakan untuk menampilkan UI dan memiliki fungsionalitas dapat di re-used selama menggunakan aplikasi tersebut, seperti navigation bar atau notification window. Untuk menggunakan Dusk Component dapat menggunakan command
 ```
    php artisan dusk:component DatePicker
-   
 ```
 Setelah menjalankan command tersebut, maka script DatePicker.php akan tertambahkan pada sub folder Component
 
@@ -170,7 +174,7 @@ Setelah menjalankan command tersebut, maka script DatePicker.php akan tertambahk
 
 Berikut adalah script DatePicker.php : [DatePicker.php](https://github.com/erzajanitra/PBKK-Laravel-feature-testing-and-unit-testing/blob/7695a7ad01fb7fe084252ddb14e5dfb46cad65bb/laravel-testing/tests/Browser/Components/DatePicker.php)
 
-Component DatePicker adalah component yang selalu dapat ditampilkan pada setiap halaman di aplikasi yang kita buat secara otomatis. Pada script DatePicker terdapat beberapa method yang akan tergenerate secara otomatis, yaitu method `selector`, `assert`, `elements`, dan `selectDate`. Kemudian, untuk menjalankan test terhadap DatePicker, kita bisa menambahkan fungsi `testBasicExample` di bawah ini. Method `selectDate` digunakan untuk memilih tanggal yang diinginkan dengan format (tahun, bulan, tanggal). Lalu, method `assertSee` digunakan untuk memastikan bahwa bulan yang dipilih telah sesuai.
+Component DatePicker adalah component yang selalu dapat ditampilkan pada setiap halaman di aplikasi yang kita buat secara otomatis. Pada script DatePicker terdapat beberapa method yang akan tergenerate secara otomatis, yaitu method `selector`, `assert`, `elements`, dan `selectDate`. Kemudian, untuk menjalankan test terhadap DatePicker, kita bisa menambahkan fungsi `testBasicExample` di bawah ini pada script PostTest.php. Method `selectDate` digunakan untuk memilih tanggal yang diinginkan dengan format (tahun, bulan, tanggal). Lalu, method `assertSee` digunakan untuk memastikan bahwa bulan yang dipilih telah sesuai.
 ```
    public function testBasicExample()
     {
@@ -184,6 +188,27 @@ Component DatePicker adalah component yang selalu dapat ditampilkan pada setiap 
     }
 ```
 #### Laravel Dusk Page
+Dusk Pages allow you to define expressive actions that may then be performed on a given page via a single method. Pages also allow you to define short-cuts to common selectors for your application or for a single page.
+Laravel Dusk memiliki fitur Page yang dapat digunakan untuk memudahkan testing pada halaman yang memiliki banyak aksi dengan menggunakan single method. Selain itu, dengan Dusk Page kita dapat menggunakan short-cuts untuk redirect ke halaman lainnya. 
+```
+   php artisan dusk:page Login
+```
+Setelah menjalankan command tersebut, maka script Login.php akan tertambahkan pada sub folder Component
+
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/75319371/168607434-155e5bc4-90c6-458c-97b9-775c482af6d9.png">
+
+Berikut adalah script DatePicker.php : [Login.php](https://github.com/erzajanitra/PBKK-Laravel-feature-testing-and-unit-testing/blob/7695a7ad01fb7fe084252ddb14e5dfb46cad65bb/laravel-testing/tests/Browser/Pages/Login.php)
+
+Pada script Login terdapat beberapa method yang akan tergenerate secara otomatis, yaitu method `url`, `assert`, dan `elements`. Kita juga bisa menambahkan sebuah method untuk memudahkan testing Login.
+```
+   public function login(Browser $browser, $username, $password)
+   {
+       $browser->type('username', $username)
+               ->type('password', $password)
+               ->press('Create Playlist');
+   }
+```
+Kemudian, untuk menjalankan test terhadap Login, kita bisa menambahkan fungsi `testLogin` di bawah ini pada PostTest.php. 
 ```
    public function testLogin(){
         $this->browse(function (Browser $browser) {
@@ -193,4 +218,8 @@ Component DatePicker adalah component yang selalu dapat ditampilkan pada setiap 
         });
     }
 ```
-
+#### Command untuk Testing
+Untuk menjalankan Dusk Test dapat menggunakan command berikut 
+```
+   php artisan dusk
+```
