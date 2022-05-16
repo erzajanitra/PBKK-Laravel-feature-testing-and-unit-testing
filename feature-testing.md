@@ -41,6 +41,7 @@ Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test c
    ```
    Berikut adalah tampilan dari halaman Create Post
 #### Request Header
+Fungsi `test_post_with_headers` digunakan untuk mengirimkan header pada HTTP request yang dibuat dengan method `withHeaders` ketika user membuka halaman Post. Dengan method `withHeaders` juga, user dapat menambahkan custom header sesuai yang diinginkan. 
 ```
       public function test_post_with_headers()
     {
@@ -52,6 +53,7 @@ Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test c
     }
 ```
 #### Cookies
+Fungsi `test_interacting_with_cookies` digunakan untuk menentukan cookies value atau menyimpan cookies sebelum melakukan HTTP request. Pada fungsi ini terdapat method `withCookie` dan method `withCookies`. `withCookie` untuk menerima cookies dengan 2 argument yang terdiri dari name dan value, sedangkan `withCookies`untuk menerima cookies dalam sebuah array.
 ```
      public function test_interacting_with_cookies()
     {
@@ -64,7 +66,16 @@ Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test c
     }
 ```
 #### Session/Authentication
-- Authentication
+- Session </br>
+   Pada fungsi `test_interacting_with_the_session` terdapat method `withSession` yang digunakan untuk set data pada sebuah session pada array. Session tersebut digunakan untuk menjaga sebuah state dari halaman yang sedang dibuka oleh user.
+   ```
+         public function test_interacting_with_the_session()
+       {
+           $response = $this->withSession(['banned' => false])->get('/');
+       }
+   ```
+- Authentication </br>
+ Pada fungsi `test_post_requires_authentication` terdapat method `actingAs` yang digunakan untuk menjadikan user yang sedang membuka halaman Post menjadi current user sehingga dapat mengakses halaman tersebut dalam session yang sama. Untuk menguji fungsi ini perlu membuat data User menggunakan factory sehingga tergenerate.
    ```   
       public function test_post_requires_authentication()
        {
@@ -75,15 +86,10 @@ Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test c
                ->get('/post');
        }
    ```
-- Session 
-   ```
-         public function test_interacting_with_the_session()
-       {
-           $response = $this->withSession(['banned' => false])->get('/');
-       }
-   ```
+
 
 #### Debugging Responses
+Pada fungsi `test_basic_test` terdapat method `dump`, `dumpHeaders`, dan `dumpSession`yang digunakan untuk debug HTTP response dari fungsi yang sebelumnya telah diujikan.
 ```
    public function test_basic_test()
     {
@@ -97,6 +103,7 @@ Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test c
     }
 ```
 #### File Upload
+Fungsi ` test_avatars_can_be_uploaded` digunakan untuk mengujikan penguploadan file pada sebuah website. Pada fungsi ini menggunakan method `fake` dari `Illuminate\Http\UploadedFile` untuk membuat dummy file atau image untuk testing dan method `fake` dari ` Illuminate\Support\Facades\Storage` untuk mempermudah testing upload file. 
 ```
    public function test_avatars_can_be_uploaded()
     {
@@ -111,3 +118,6 @@ Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test c
         Storage::disk('avatars')->assertExists($file->hashName());
     }
 ```
+
+### Browser Test
+
