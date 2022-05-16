@@ -13,3 +13,4 @@ Pertama untuk membuat Unit Testing, dapat menjalankan command berikut
 ```
 
 Maka pada project laravel akan terdapat folder `tests` dan sub folder `Unit` dengan beberapa script di dalamnya
+![image](https://user-images.githubusercontent.com/68325900/168513652-965c6736-f677-402f-b6a2-05c805780bea.png)
