@@ -1,5 +1,5 @@
 # Laravel Unit Testing and Feature Testing
+## Daftar Isi
+1. [Testing and Unit Testing](unit-testing.md)
 
-[Testing and Unit Testing](unit-testing.md)
-
-[Feature Testing](feature-testing.md)
+2. [Feature Testing](feature-testing.md)
