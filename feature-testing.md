@@ -18,7 +18,10 @@ Maka pada project laravel akan terdapat folder `tests` dan sub folder `Feature` 
 
 <img width="164" alt="image" src="https://user-images.githubusercontent.com/75319371/168455939-ce12cd21-657b-473c-9511-665af528faf7.png">
 
+Berikut adalah script PostTest.php : [PostTest.php](https://github.com/erzajanitra/PBKK-Laravel-feature-testing-and-unit-testing/blob/824e7f4bc903182f3a8872f2a797c7c16712d9e8/laravel-testing/tests/Feature/PostTest.php)
+
 Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test case yang dapat digunakan untuk menguji aplikasi kita.
+
 #### Basic Request
 - Fungsi `test_welcome_status` digunakan untuk menguji ketika membuka page dengan route `/post` menggunakan method `get`. Jika berhasil membuka page tersebut maka akan mendapatkan response berupa status code 200. 
    ```
@@ -120,4 +123,21 @@ Fungsi ` test_avatars_can_be_uploaded` digunakan untuk mengujikan penguploadan f
 ```
 
 ### Browser Test
+Untuk Browser Test dapat menggunakan salah satu fitur testing dari laravel untuk pengujian aplikasi laravel secara otomatis, yaitu Laravel Dusk. Laravel Dusk adalah browser automation and testing API yang disediakan oleh Laravel dan tidak mengharuskan kita untuk menginstall JDK atau Selenium ke browser kita, melainkan menggunakan ChromeDriver. Namun, kita juga bebas menggunakan driver yang compatible dengan Selenium yang lain.
+#### Install Laravel Dusk
+Sebelum menginstall Laravel Dusk perlu menambahkan `laravel/dusk` pada Dependency Composer dengan command berikut
+```
+   composer require --dev laravel/dusk
+```
+Setelah berhasil menambahkan `laravel/dusk`, install Laravel Dusk dengan command berikut
+```
+   php artisan dusk:install
+```
+
+Berikut adalah script PostTest.php : [PostTest.php](https://github.com/erzajanitra/PBKK-Laravel-feature-testing-and-unit-testing/blob/824e7f4bc903182f3a8872f2a797c7c16712d9e8/laravel-testing/tests/Browser/PostTest.php)
+
+Tambahkan beberapa fungsi di bawah ini pada script `PostTest.php` sebagai test case yang dapat digunakan untuk menguji aplikasi kita.
+#### Basic Test
+#### Laravel Dusk Component
+#### Laravel Dusk Feature
 
