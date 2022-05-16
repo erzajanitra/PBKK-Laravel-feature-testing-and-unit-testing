@@ -8,7 +8,7 @@ Feature test dapat digunakan untuk menguji gabungan komponen pada aplikasi yang 
    
 
 ## Tutorial
-### HTTP Test
+### 1. HTTP Test
 #### Membuat Script PostTest
 Untuk melakukan HTTP Test dapat menjalankan command berikut 
 ```
@@ -128,7 +128,7 @@ Untuk menjalankan HTTP Test dapat menggunakan command berikut
    php artisan test
 ```
 
-### Browser Test
+### 2. Browser Test
 Untuk Browser Test dapat menggunakan salah satu fitur testing dari laravel untuk pengujian aplikasi laravel secara otomatis, yaitu Laravel Dusk. Laravel Dusk adalah browser automation and testing API yang disediakan oleh Laravel dan tidak mengharuskan kita untuk menginstall JDK atau Selenium ke browser kita, melainkan menggunakan ChromeDriver. Namun, kita juga bebas menggunakan driver yang compatible dengan Selenium yang lain.
 #### Install Laravel Dusk
 Sebelum menginstall Laravel Dusk perlu menambahkan `laravel/dusk` pada Dependency Composer dengan command berikut
@@ -223,3 +223,8 @@ Untuk menjalankan Dusk Test dapat menggunakan command berikut
 ```
    php artisan dusk
 ```
+
+## Referensi
+1. [HTTP Tests](https://laravel.com/docs/8.x/http-tests)
+2. [Browser Tests : Laravel Dusk](https://laravel.com/docs/9.x/dusk#using-components)
+ 
